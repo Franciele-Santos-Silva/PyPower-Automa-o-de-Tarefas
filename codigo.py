@@ -2,10 +2,12 @@ import pyautogui
 #Passo 1: Entrar no sistema da empresa - https://dlp.hashtagtreinamentos.com/python/intensivao/login .
 #abrir o navegador (chrome) .
 pyautogui.press('win')
-#digitar o site
 pyautogui.write('chrome')
+pyautogui.press('enter')
 
-
+#digitar o site
+pyautogui.write('https://dlp.hashtagtreinamentos.com/python/intensivao/login')
+pyautogui.press('enter')
 
 
 
@@ -22,4 +24,4 @@ pyautogui.write('chrome')
 # pyautogui.click -> clicar em algum lugar da tela
 # pyautogui.press -> apertar 1 tecla
 # pyautogui.write -> escrever um texto
-# pyautogui.hotkey -> combinação de teclas 
+# pyautogui.hotkey -> apertar combinação de teclas 
