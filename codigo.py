@@ -1,4 +1,6 @@
 import pyautogui 
+
+pyautogui.PAUSE = 1;
 #Passo 1: Entrar no sistema da empresa - https://dlp.hashtagtreinamentos.com/python/intensivao/login .
 #abrir o navegador (chrome) .
 pyautogui.press('win')
@@ -8,10 +10,6 @@ pyautogui.press('enter')
 #digitar o site
 pyautogui.write('https://dlp.hashtagtreinamentos.com/python/intensivao/login')
 pyautogui.press('enter')
-
-
-
-
 
 
 #Passo 2: Fazer login .
