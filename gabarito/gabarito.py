@@ -21,7 +21,6 @@ pyautogui.write("https://dlp.hashtagtreinamentos.com/python/intensivao/login")
 pyautogui.press("enter")
 time.sleep(3)
 
-
 # Passo 2: Fazer login
 # selecionar o campo de email
 pyautogui.click(x=685, y=451)

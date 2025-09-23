@@ -1,25 +1,66 @@
-import pyautogui 
+import pyautogui
+import time
+import pandas as pd
+from dotenv import load_dotenv
+import os
 
-pyautogui.PAUSE = 1;
-#Passo 1: Entrar no sistema da empresa - https://dlp.hashtagtreinamentos.com/python/intensivao/login .
-#abrir o navegador (chrome) .
-pyautogui.press('win')
-pyautogui.write('chrome')
-pyautogui.press('enter')
+load_dotenv()
+EMAIL = os.getenv("EMAIL")
+SENHA = os.getenv("SENHA")
 
-#digitar o site
-pyautogui.write('https://dlp.hashtagtreinamentos.com/python/intensivao/login')
-pyautogui.press('enter')
+pyautogui.PAUSE = 1 
 
+def abrir_navegador(url: str):
+    pyautogui.press('win')      
+    pyautogui.write('chrome')   
+    pyautogui.press('enter')   
+    time.sleep(2)
+    pyautogui.write(url)       
+    pyautogui.press('enter')    
+    time.sleep(3)               
 
-#Passo 2: Fazer login .
-#Passo 3: Importar a base de dados de produtos pra cadastrar .
-#Passo 4: Cadastrar um produto .
-#Passo 5: Repetir o cadastro para todos os produtos .
+def fazer_login(email: str, senha: str):
+    pyautogui.click(x=685, y=451) 
+    pyautogui.write(email)          
+    pyautogui.press('tab')          
+    pyautogui.write(senha)          
+    pyautogui.click(x=955, y=638) 
+    time.sleep(3)
 
-#pyautogui -> faz automaçoes em python(controla mouse,teclado e tela do computador)
+def importar_base(caminho_csv: str) -> pd.DataFrame:
+    tabela = pd.read_csv(caminho_csv)
+    print(tabela)
+    return tabela
 
-# pyautogui.click -> clicar em algum lugar da tela
-# pyautogui.press -> apertar 1 tecla
-# pyautogui.write -> escrever um texto
-# pyautogui.hotkey -> apertar combinação de teclas 
+def cadastrar_produto(linha):
+    pyautogui.click(x=653, y=294)  
+    pyautogui.write(str(linha["codigo"]))
+    pyautogui.press('tab')
+    pyautogui.write(str(linha["marca"]))
+    pyautogui.press('tab')
+    pyautogui.write(str(linha["tipo"]))
+    pyautogui.press('tab')
+    pyautogui.write(str(linha["categoria"]))
+    pyautogui.press('tab')
+    pyautogui.write(str(linha["preco_unitario"]))
+    pyautogui.press('tab')
+    pyautogui.write(str(linha["custo"]))
+    pyautogui.press('tab')
+    
+    if not pd.isna(linha.get("obs")):
+        pyautogui.write(str(linha["obs"]))
+    pyautogui.press('tab')
+    pyautogui.press('enter') 
+    pyautogui.scroll(5000)    
+
+def cadastrar_todos_produtos(tabela: pd.DataFrame):
+    for _, linha in tabela.iterrows():
+        cadastrar_produto(linha)
+
+URL_SISTEMA = "https://dlp.hashtagtreinamentos.com/python/intensivao/login"
+CSV_PRODUTOS = "produtos.csv"
+
+abrir_navegador(URL_SISTEMA)
+fazer_login(EMAIL, SENHA)
+tabela_produtos = importar_base(CSV_PRODUTOS)
+cadastrar_todos_produtos(tabela_produtos)
