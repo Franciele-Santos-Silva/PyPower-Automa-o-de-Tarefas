@@ -4,7 +4,7 @@ import pandas as pd
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
+load_dotenv()        
 EMAIL = os.getenv("EMAIL")
 SENHA = os.getenv("SENHA")
 
@@ -12,6 +12,7 @@ pyautogui.PAUSE = 1
 
 def abrir_navegador(url: str):
     pyautogui.press('win')      
+
     pyautogui.write('chrome')   
     pyautogui.press('enter')   
     time.sleep(2)
